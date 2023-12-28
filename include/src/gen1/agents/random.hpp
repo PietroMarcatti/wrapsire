@@ -22,7 +22,6 @@ namespace RBY
         RandomAgentRBY(double MoveProb) :
             rng(std::random_device{}()), dist(0.0, 1.0), move_prob(MoveProb)
         {
-            this->player = player;
         }
 
         pkmn_choice make_choice()
