@@ -19,12 +19,14 @@ add_library(engine-wrapper INTERFACE)
 target_include_directories(engine-wrapper INTERFACE include)
 
 set(WRAPSIRE_SOURCES
-    main.cpp
+    examples/basicuse.cpp
 )
 
-add_executable(wrapsire ${WRAPSIRE_SOURCES})
+add_executable(basicuse ${WRAPSIRE_SOURCES})
+target_link_libraries(basicuse INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a)
 
-target_link_libraries(wrapsire INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a)
+add_executable(randomagent examples/randomagent.cpp)
+target_link_libraries(randomagent INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a)
 
 # TEST
 
