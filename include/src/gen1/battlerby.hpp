@@ -156,6 +156,16 @@ namespace RBY
             this->p2->gamestate = &battle_;
             this->p2->player = PKMN_PLAYER_P2;
         }
+
+        pkmn_gen1_battle* operator()() 
+        {
+            return &battle_;
+        }
+
+        const pkmn_gen1_battle* operator()() const
+        {
+            return &battle_;
+        }
         /// @brief  Iterator that points to the begin of battle state
         /// @return Iterator to begin of battle state
         constexpr auto begin()
