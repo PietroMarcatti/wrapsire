@@ -18,12 +18,12 @@ namespace engine
 namespace RBY
 {
     // example instantiaion with predefined sides
-    static constexpr Battle<Gen::RBY> miedon_miedon  = rby_battle(miedon, miedon, 2291);
-    static constexpr Battle<Gen::RBY> miedon_zapjynx = rby_battle(miedon, zapjynx, 2290);
-    static constexpr Battle<Gen::RBY> LaxVsDon       = rby_battle(monolax, monodon, 0);
+    constexpr Battle<Gen::RBY> miedon_miedon  = rby_battle(miedon, miedon, 2291);
+    constexpr Battle<Gen::RBY> miedon_zapjynx = rby_battle(miedon, zapjynx, 2290);
+    constexpr Battle<Gen::RBY> LaxVsDon       = rby_battle(monolax, monodon, 0);
 
     // example for completely fresh battle instantiation
-    static constexpr Battle<Gen::RBY> miezam_zamdon  = rby_battle(
+    constexpr Battle<Gen::RBY> miezam_zamdon  = rby_battle(
                                                             make_side(rby_poke(Starmie,   {Surf, Psychic, Recover, ThunderWave}),
                                                                       rby_poke(Snorlax,   {BodySlam, IceBeam, Reflect, Rest}),
                                                                       rby_poke(Chansey,   {IceBeam, SeismicToss, Sing, SoftBoiled}),

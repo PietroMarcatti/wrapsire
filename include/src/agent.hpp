@@ -12,11 +12,6 @@
 */
 namespace engine
 {
-    enum class Player
-    {
-        PLAYER_ONE = 1,
-        PLAYER_TWO = 2,
-    };
     template<Gen gen, typename GameState, typename Choice>
     struct Agent
     {
