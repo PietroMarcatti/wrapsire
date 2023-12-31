@@ -75,17 +75,14 @@
         return (vol & PLACE) >> SHIFT;                                          \
     }                                                                           \
 
-namespace engine
-{
-namespace RBY
-{
+namespace wrapsire {
+namespace RBY {
     inline void print_battle_result(pkmn_gen1_battle& battle, pkmn_result result);
     template<Gen gen>
     struct Battle;
 
     template<>
-    struct Battle<Gen::RBY>
-    {
+    struct Battle<Gen::RBY> {
         /// @brief Agents to play the game
         AgentRBY *p1 = nullptr, *p2 = nullptr;
         /// @brief current battle state
@@ -147,8 +144,7 @@ namespace RBY
         /// @param side2 player 2 side
         /// @param seed seed for RNG
         constexpr Battle(AgentRBY* p1, AgentRBY* p2, const rby_side& side1, const rby_side& side2, std::uint64_t seed = 0) :
-            Battle(side1, side2, seed)
-        {
+            Battle(side1, side2, seed) {
             this->p1 = p1;
             this->p1->gamestate = &battle_;
             this->p1->player = PKMN_PLAYER_P1;
@@ -157,55 +153,46 @@ namespace RBY
             this->p2->player = PKMN_PLAYER_P2;
         }
 
-        pkmn_gen1_battle* operator()() 
-        {
+        pkmn_gen1_battle* operator()() {
             return &battle_;
         }
 
-        const pkmn_gen1_battle* operator()() const
-        {
+        const pkmn_gen1_battle* operator()() const {
             return &battle_;
         }
         /// @brief  Iterator that points to the begin of battle state
         /// @return Iterator to begin of battle state
-        constexpr auto begin()
-        { 
+        constexpr auto begin() { 
             return std::begin(battle_.bytes); 
         }
         /// @brief  Iterator that points to the memory after last byte of battle state
         /// @return Iterator to end of battle state
-        constexpr auto end()
-        {
+        constexpr auto end() {
             return std::end(battle_.bytes);
         }
         /// @brief  const Iterator that points to the begin of battle state
         /// @return const Iterator to begin of battle state
-        constexpr auto cbegin() const
-        { 
+        constexpr auto cbegin() const { 
             return std::cbegin(battle_.bytes); 
         }
         /// @brief  const iterator that points to the memory after last byt eof battle state
         /// @return const Iterator to end of battle state
-        constexpr auto cend() const
-        {
+        constexpr auto cend() const {
             return std::cend(battle_.bytes);
         }
         /// @brief  size method for the battle state
         /// @return size of battle state
-        constexpr auto size() const
-        {
+        constexpr auto size() const {
             return std::size(battle_.bytes);
         }
         /// @brief  raw array of battle state
         /// @return raw array of battle state
-        constexpr auto bytes() const
-        {
+        constexpr auto bytes() const {
             return battle_.bytes;
         }
 
         /// @brief initializes the battle
-        void init() 
-        { 
+        void init() { 
             pkmn_psrng_init(&random, seed);
             uint8_t buf[PKMN_LOGS_SIZE];
             pkmn_gen1_log_options log_options = {.buf = buf, .len = PKMN_LOGS_SIZE};
@@ -220,40 +207,33 @@ namespace RBY
             return pkmn_gen1_battle_choices(&battle_, PKMN_PLAYER_P2, pkmn_result_p2(result), actions.data(), PKMN_CHOICES_SIZE);
         }
 
-        pkmn_choice choose_p1()
-        {
+        pkmn_choice choose_p1() {
             return p1->make_choice(); 
         }
 
-        pkmn_choice choose_p2()
-        {
+        pkmn_choice choose_p2() {
             return p2->make_choice(); 
         }
 
-        pkmn_result play_turn(pkmn_choice choice_p1, pkmn_choice choice_p2)
-        {
+        pkmn_result play_turn(pkmn_choice choice_p1, pkmn_choice choice_p2) {
             this->result = pkmn_gen1_battle_update(&battle_, choice_p1, choice_p2, NULL);
             return this->result;
         }
 
-        pkmn_result play_turn()
-        {
+        pkmn_result play_turn() {
             return play_turn(choose_p1(), choose_p2());
         }
 
-        pkmn_result play_battle()
-        {
+        pkmn_result play_battle() {
             init();
-            while(!pkmn_result_type(result))
-            {
+            while(!pkmn_result_type(result)) {
                 result = play_turn();
             }
 
             return result;
         }
 
-        void print_result()
-        {
+        void print_result() {
             print_battle_result(this->battle_, this->result);
         }
     };
@@ -312,36 +292,28 @@ namespace RBY
     // either sides active pokemon
     SUB_SLICE(active, 144, 176)
     // HACKY AF
-    inline constexpr Type type1(Slice& types)
-    {
+    inline constexpr Type type1(Slice& types) {
         return std::bit_cast<Type>(static_cast<std::uint8_t>((*(types.begin()) & 0xf0))); 
     }
-    inline constexpr Type type2(Slice& types)
-    {
+    inline constexpr Type type2(Slice& types) {
         return std::bit_cast<Type>(static_cast<std::uint8_t>((*(types.begin()) & 0x0f))); 
     }
-    inline constexpr std::uint8_t boost_atk(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_atk(Slice& active) {
         return (*(active.begin() + 12) & 0xf0) >> 4;
     }
-    inline constexpr std::uint8_t boost_def(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_def(Slice& active) {
         return *(active.begin() + 12) & 0x0f;
     }
-    inline constexpr std::uint8_t boost_spe(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_spe(Slice& active) {
         return (*(active.begin() + 13) & 0xf0) >> 4;
     }
-    inline constexpr std::uint8_t boost_spec(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_spec(Slice& active) {
         return *(active.begin() + 13) & 0x0f;
     }
-    inline constexpr std::uint8_t boost_acc(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_acc(Slice& active) {
         return (*(active.begin() + 14) & 0xf0) >> 4;
     }
-    inline constexpr std::uint8_t boost_eva(Slice& active)
-    {
+    inline constexpr std::uint8_t boost_eva(Slice& active) {
         return *(active.begin() + 14) & 0x0f;
     }
     // get volatiles from active pokemon
@@ -409,20 +381,16 @@ namespace RBY
 
     #undef SINGLE_BATTLE_VIEW
 
-    inline uint8_t options_p1_move(pkmn_gen1_battle& battle, pkmn_choice options[])
-    {
+    inline uint8_t options_p1_move(pkmn_gen1_battle& battle, pkmn_choice options[]) {
         return pkmn_gen1_battle_choices(&battle, PKMN_PLAYER_P1, PKMN_CHOICE_MOVE, options, PKMN_CHOICES_SIZE);
     }
-    inline uint8_t options_p2_move(pkmn_gen1_battle& battle, pkmn_choice options[])
-    {
+    inline uint8_t options_p2_move(pkmn_gen1_battle& battle, pkmn_choice options[]) {
         return pkmn_gen1_battle_choices(&battle, PKMN_PLAYER_P2, PKMN_CHOICE_MOVE, options, PKMN_CHOICES_SIZE);
     }
-    inline uint8_t options_p1_switch(pkmn_gen1_battle& battle, pkmn_choice options[])
-    {
+    inline uint8_t options_p1_switch(pkmn_gen1_battle& battle, pkmn_choice options[]) {
         return pkmn_gen1_battle_choices(&battle, PKMN_PLAYER_P1, PKMN_CHOICE_SWITCH, options, PKMN_CHOICES_SIZE);
     }
-    inline uint8_t options_p2_switch(pkmn_gen1_battle& battle, pkmn_choice options[])
-    {
+    inline uint8_t options_p2_switch(pkmn_gen1_battle& battle, pkmn_choice options[]) {
         return pkmn_gen1_battle_choices(&battle, PKMN_PLAYER_P2, PKMN_CHOICE_SWITCH, options, PKMN_CHOICES_SIZE);
     }
 
@@ -511,33 +479,27 @@ namespace RBY
 
     #undef SET_STAT
 
-    inline constexpr void set_atk_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_atk_boost(Slice& active, std::uint8_t boost) {
         active[12] &= ~0xf0;
         active[12] |= boost << 4;
     }
-    inline constexpr void set_def_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_def_boost(Slice& active, std::uint8_t boost) {
         active[12] &= ~0xf;
         active[12] |= boost;
     }
-    inline constexpr void set_spe_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_spe_boost(Slice& active, std::uint8_t boost) {
         active[13] &= ~0xf0;
         active[13] |= boost << 4;
     }
-    inline constexpr void set_spec_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_spec_boost(Slice& active, std::uint8_t boost) {
         active[13] &= ~0xf;
         active[13] |= boost;
     }
-    inline constexpr void set_acc_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_acc_boost(Slice& active, std::uint8_t boost) {
         active[14] &= ~0xf0;
         active[14] |= boost << 4;
     }
-    inline constexpr void set_eva_boost(Slice& active, std::uint8_t boost)
-    {
+    inline constexpr void set_eva_boost(Slice& active, std::uint8_t boost) {
         active[14] &= ~0xf;
         active[14] |= boost;
     }
@@ -569,17 +531,14 @@ namespace RBY
 
     #undef SET_VOLATILE_BIT
 
-    inline constexpr void set_seed(pkmn_gen1_battle& battle, std::uint64_t seed)
-    {
-        for(int i = 0; i < 8; ++i)
-        {
+    inline constexpr void set_seed(pkmn_gen1_battle& battle, std::uint64_t seed) {
+        for(int i = 0; i < 8; ++i) {
             battle.bytes[376+i] = static_cast<uint8_t>(seed & 0xFF);
             seed >>= 8;
         }
     }
 
-    inline void print_battle_result(pkmn_gen1_battle& battle, pkmn_result result)
-    {
+    inline void print_battle_result(pkmn_gen1_battle& battle, pkmn_result result) {
         // The battle is written in native endianness so we need to do a bit-hack to
         // figure out the system's endianess before we can read the 16-bit turn data
         volatile uint32_t endian = 0x01234567;
@@ -609,5 +568,5 @@ namespace RBY
         }
     }
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire
 #undef SLICE

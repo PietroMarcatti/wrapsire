@@ -3,7 +3,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
-using namespace engine::RBY;
+using namespace wrapsire::RBY;
 using Pokebytes = std::array<std::uint8_t, 24>;
 
 constexpr Pokemon test_alakazam  = rby_poke(Alakazam, {SeismicToss, Psychic, Recover, ThunderWave}); 

@@ -10,11 +10,9 @@
 /*
 * Abstract templated class to derive Agents for different generations from
 */
-namespace engine
-{
+namespace wrapsire {
     template<Gen gen, typename GameState, typename Choice>
-    struct Agent
-    {
+    struct Agent {
         pkmn_player player;
         GameState* gamestate = nullptr;
         virtual Choice make_choice() = 0;
@@ -22,4 +20,4 @@ namespace engine
 
     // Generation specific Agent typedefs
     typedef Agent<Gen::RBY, pkmn_gen1_battle, pkmn_choice> AgentRBY;
-} // namespace engine
+} // namespace wrapsire

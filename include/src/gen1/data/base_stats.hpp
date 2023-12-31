@@ -9,11 +9,10 @@
 
 #include "species.hpp"
 
-namespace engine
-{
+namespace wrapsire {
+namespace RBY {
     // skip special defense, due to reusability reasons.
-    enum Stat : uint8_t
-    {
+    enum Stat : uint8_t {
         HP   = 0,
         ATK  = 1,
         DEF  = 2,
@@ -21,10 +20,8 @@ namespace engine
         SPC  = 4,
     };
 
-    constexpr std::array<std::uint16_t, 6> get_base_stats(std::uint8_t species)
-    {
-        switch (species)
-        {
+    constexpr std::array<std::uint16_t, 6> get_base_stats(std::uint8_t species) {
+        switch (species) {
             case RBY::Species::None:
                 return {0, 0, 0, 0, 0};                             
             case RBY::Species::Bulbasaur:
@@ -331,4 +328,5 @@ namespace engine
                 return {100, 100, 100, 100, 100};
         }
     }
-} // namespace engine
+} // namespace RBY
+} // namespace wrapsire

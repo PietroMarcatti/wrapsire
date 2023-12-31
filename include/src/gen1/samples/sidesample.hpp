@@ -13,10 +13,8 @@
 *
 */
 
-namespace engine
-{
-namespace RBY
-{
+namespace wrapsire {
+namespace RBY {
     /// @brief Starmie and Rhydon with standard 4
     constexpr Side miedon  = make_side(starmie, chansey, snorlax, tauros, exegg, rhydon);
     /// @brief Zapdos and Jynx with standard 4
@@ -36,4 +34,4 @@ namespace RBY
     /// @brief Just a Tauros
     constexpr Side monodon = make_side(rhydon, none, none, none, none, none);
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

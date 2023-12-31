@@ -11,12 +11,9 @@
 * enum to map a species to 1 byte
 */
 
-namespace engine
-{
-namespace RBY
-{
-    enum Species : std::uint8_t 
-    {
+namespace wrapsire {
+namespace RBY {
+    enum Species : std::uint8_t {
         None,
         Bulbasaur,
         Ivysaur,
@@ -171,4 +168,4 @@ namespace RBY
         Mew
     };
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

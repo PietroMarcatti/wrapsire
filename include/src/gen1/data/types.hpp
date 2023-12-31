@@ -10,12 +10,9 @@
 
 #include "species.hpp"
 
-namespace engine
-{
-namespace RBY
-{
-    enum Type : uint8_t
-    {
+namespace wrapsire {
+namespace RBY {
+    enum Type : uint8_t {
         Normal,
         Fighting,
         Flying,
@@ -33,10 +30,8 @@ namespace RBY
         Dragon,
     };
     
-    inline constexpr std::array<uint8_t, 2> get_type(Species species)
-    {
-        switch(species)
-        {
+    inline constexpr std::array<uint8_t, 2> get_type(Species species) {
+        switch(species) {
             case None:         return {Normal, Normal};
             case Bulbasaur:    return {Grass, Poison};
             case Ivysaur:      return {Grass, Poison};
@@ -192,4 +187,4 @@ namespace RBY
         }
     }
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

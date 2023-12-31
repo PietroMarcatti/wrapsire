@@ -9,38 +9,32 @@
 
 #include "pokemonrby.hpp"
 
-namespace engine
-{
-namespace RBY
-{
+namespace wrapsire {
+namespace RBY {
     template<Gen gen>
     struct Side;
     
     /// @brief container class to create and store byte representation of a Side
     template<>
-    struct Side<Gen::RBY>
-    {
+    struct Side<Gen::RBY> {
         /// @brief stores byte representation of the Side
         std::array<std::uint8_t, 184> bytes{ 0 };
 
         /// @brief Constructor to create byte representation of the Side
         /// empty default constructor
-        constexpr Side()
-        {
+        constexpr Side() {
+            
         }
         /// @brief Constructor to create byte representation of the Side
         /// @param pmember array of Pokemon that make up the Side
         template<typename ConT>
-        constexpr Side(const ConT& side)
-        {
+        constexpr Side(const ConT& side) {
             init(side);
         }
         template<typename ConT>
-        constexpr void init(const ConT& pmember)
-        {
+        constexpr void init(const ConT& pmember) {
             // braindamage or genius???
-            for(int i = 0; i < 24; ++i)
-            {
+            for(int i = 0; i < 24; ++i) {
                 *(bytes.begin() + i)        = *(pmember[0].bytes.begin() + i);
                 *(bytes.begin() + i + 24)   = *(pmember[1].bytes.begin() + i);
                 *(bytes.begin() + i + 48)   = *(pmember[2].bytes.begin() + i);
@@ -100,32 +94,27 @@ namespace RBY
 
         /// @brief  Iterator pointing to the begin of the byte representation
         /// @return Iterator pointing to the begin of the byte representation
-        constexpr auto begin()
-        { 
+        constexpr auto begin() { 
             return bytes.begin(); 
         }
         /// @brief  Iterator pointing one behind the last byte of the byte representation
         /// @return Iterator pointing one behind the last byte of the byte representation
-        constexpr auto end()
-        {
+        constexpr auto end() {
             return bytes.end();
         }
         /// @brief  const Iterator pointing to the begin of the byte representation
         /// @return const Iterator pointing to the begin of the byte representation
-        constexpr auto cbegin() const
-        { 
+        constexpr auto cbegin() const { 
             return bytes.cbegin(); 
         }
         /// @brief  const Iterator pointing one behind the last byte of the byte representation
         /// @return const Iterator pointing one behind the last byte of the byte representation
-        constexpr auto cend() const
-        {
+        constexpr auto cend() const {
             return bytes.cend();
         }
         /// @brief  amount of bytes of the byte representation
         /// @return amount of bytes of the byte representation
-        constexpr auto size() const
-        {
+        constexpr auto size() const {
             return bytes.size();
         }
     };
@@ -133,8 +122,7 @@ namespace RBY
     using rby_side = Side<Gen::RBY>;
 
     template<typename ConT>
-    constexpr rby_side make_side(ConT side)
-    {
+    constexpr rby_side make_side(ConT side) {
         return rby_side(side);
     }
 
@@ -143,9 +131,8 @@ namespace RBY
                                  const rby_poke& p3, 
                                  const rby_poke& p4, 
                                  const rby_poke& p5, 
-                                 const rby_poke& p6)
-    {
+                                 const rby_poke& p6) {
         return rby_side(std::array<rby_poke, 6>{p1, p2, p3, p4, p5, p6});
     }
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

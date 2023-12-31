@@ -7,8 +7,9 @@
 
 #include <cstdint>
 
-enum Status : std::uint8_t
-{
+namespace wrapsire {
+namespace RBY {
+enum Status : std::uint8_t {
     HLT = 0,
     SLP = 2,
     PSN,
@@ -17,3 +18,5 @@ enum Status : std::uint8_t
     PAR,
     EXT,
 };
+} // namespace RBY
+} // namespace wrapsire

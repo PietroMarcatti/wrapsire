@@ -7,10 +7,8 @@
 *
 */
 
-namespace engine
-{
-namespace RBY
-{
+namespace wrapsire {
+namespace RBY {
     /// @brief placeholder to create Side with less than 6 members
     constexpr Pokemon none     = rby_poke(None, {None_, None_, None_, None_});
     /// @brief Standard Alakazam set
@@ -40,4 +38,4 @@ namespace RBY
     /// @brief Standard Zapdos set
     constexpr Pokemon zapdos   = rby_poke(Zapdos,    {Thunderbolt, DrillPeck, Agility, ThunderWave});
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

@@ -7,11 +7,9 @@
 
 #include <cstdint>
 
-namespace engine
-{
+namespace wrapsire {
     /// @brief specifies the generation in use
-    enum class Gen : std::uint8_t
-    {
+    enum class Gen : std::uint8_t {
         RBY  = 1,
         GSC  = 2,
         ADV  = 3,
@@ -22,4 +20,4 @@ namespace engine
         SS   = 8,
         SV   = 9,
     };
-} // namespace engine
+} // namespace wrapsire

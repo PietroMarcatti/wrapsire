@@ -7,12 +7,9 @@
 
 #include <cstdint>
 
-namespace engine
-{
-namespace RBY
-{
-    enum Move : std::uint8_t
-    {
+namespace wrapsire {
+namespace RBY {
+    enum Move : std::uint8_t {
         None_,
         Pound,
         KarateChop,
@@ -181,13 +178,11 @@ namespace RBY
         Struggle,
     };
 
-    inline constexpr uint8_t move_pp(Move move, float PP_UP = 3)
-    {
+    inline constexpr uint8_t move_pp(Move move, float PP_UP = 3) {
         // apply pp up by stages, default max
         PP_UP = 1 + 0.2 * PP_UP;
 
-        switch(move)
-        {
+        switch(move) {
             case None:          return 0  * PP_UP;
             case Pound:         return 35 * PP_UP;
             case KarateChop:    return 25 * PP_UP;
@@ -357,4 +352,4 @@ namespace RBY
         }
     }
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

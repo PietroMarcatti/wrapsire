@@ -24,9 +24,9 @@ pkmn_choice choose(
 
 int main(int argc, char **argv)
 {
-   using namespace engine::RBY;
+   using namespace wrapsire::RBY;
    
-   auto battle = engine::RBY::miedon_zapjynx;
+   auto battle = wrapsire::RBY::miedon_zapjynx;
    pkmn_result result = PKMN_RESULT_NONE;
    pkmn_choice c1;
    pkmn_choice c2;

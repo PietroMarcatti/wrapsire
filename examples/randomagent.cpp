@@ -5,17 +5,15 @@
 
 // Can be used to randomly pick a team out of a container
 template<typename Container>
-typename Container::value_type random_team(const Container& teams)
-{
+typename Container::value_type random_team(const Container& teams) {
    static std::random_device rd;
    static std::mt19937 gen(rd());
    static std::uniform_int_distribution<> distrib(0, teams.size() - 1);
    return teams[distrib(gen)];
 }
 
-int main()
-{
-    using namespace engine::RBY;
+int main() {
+    using namespace wrapsire::RBY;
 
     int battles = 10000;
     uint64_t seed = 0;
@@ -41,12 +39,9 @@ int main()
     // play out each matchup #battles of time
     // and count the wins/ties
     auto battle = rby_battle(&Agent1, &Agent2, zamdon, miebro, distrib(gen));
-    for(auto&& team : teams)
-    {
-        for(auto&& team_ : teams)
-        {
-            for(int i = 0; i < battles; ++i)
-            {
+    for(auto&& team : teams) {
+        for(auto&& team_ : teams) {
+            for(int i = 0; i < battles; ++i) {
                 battle = rby_battle(&Agent1, &Agent2, team, team_, distrib(gen));
                 battle.play_battle();
 

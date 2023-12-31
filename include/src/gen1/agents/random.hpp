@@ -10,22 +10,16 @@
 
 #include <random>
 
-namespace engine
-{
-namespace RBY
-{
-    struct RandomAgentRBY : AgentRBY
-    {
+namespace wrapsire {
+namespace RBY {
+    struct RandomAgentRBY : AgentRBY {
         std::mt19937 rng;
         std::uniform_real_distribution<double> dist;
         double move_prob = 1.0;
         RandomAgentRBY(double MoveProb) :
-            rng(std::random_device{}()), dist(0.0, 1.0), move_prob(MoveProb)
-        {
-        }
+            rng(std::random_device{}()), dist(0.0, 1.0), move_prob(MoveProb) {}
 
-        pkmn_choice make_choice()
-        {
+        pkmn_choice make_choice() {
             pkmn_choice move_choices[PKMN_CHOICES_SIZE];
             pkmn_choice switch_choices[PKMN_CHOICES_SIZE];
             uint8_t moves_n    = pkmn_gen1_battle_choices(gamestate, player, PKMN_CHOICE_MOVE, move_choices, PKMN_CHOICES_SIZE);
@@ -54,4 +48,4 @@ namespace RBY
         }
     };
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire

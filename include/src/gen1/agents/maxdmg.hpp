@@ -5,5 +5,5 @@
 
 #pragma once
 
-#include "../../agent.hpp"
-
+#include "agent.hpp"
+#include "battlerby.hpp"

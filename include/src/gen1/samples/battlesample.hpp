@@ -13,10 +13,8 @@
 *
 */
 
-namespace engine
-{
-namespace RBY
-{
+namespace wrapsire {
+namespace RBY {
     // example instantiaion with predefined sides
     constexpr Battle<Gen::RBY> miedon_miedon  = rby_battle(miedon, miedon, 2291);
     constexpr Battle<Gen::RBY> miedon_zapjynx = rby_battle(miedon, zapjynx, 2290);
@@ -38,4 +36,4 @@ namespace RBY
                                                                       rby_poke(Rhydon,    {BodySlam, Earthquake, Substitute, Rest})),
                                                             0xf5a8b3958a2ef6c8);
 } // namespace RBY
-} // namespace engine
+} // namespace wrapsire
