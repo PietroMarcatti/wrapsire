@@ -30,7 +30,7 @@
 // defines a function FUNC that returns the value of
 // side.begin() + START interpreted as type TYPE
 #define SINGLE_SLICE_VIEW(FUNC, TYPE, START)                   \
-    inline constexpr TYPE FUNC(Slice& view)                    \
+    inline TYPE FUNC(Slice& view)                    \
     {                                                          \
        return *reinterpret_cast<TYPE*>(view.begin() + START);  \
     }                                                          \
@@ -194,7 +194,7 @@ namespace RBY {
         /// @brief initializes the battle
         void init() { 
             pkmn_psrng_init(&random, seed);
-            uint8_t buf[PKMN_LOGS_SIZE];
+            uint8_t buf[128];
             pkmn_gen1_log_options log_options = {.buf = buf, .len = PKMN_LOGS_SIZE};
             pkmn_gen1_battle_options_set(&options, &log_options, NULL, NULL);
         }

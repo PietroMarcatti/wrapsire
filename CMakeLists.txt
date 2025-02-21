@@ -23,10 +23,10 @@ set(WRAPSIRE_SOURCES
 )
 
 add_executable(basicuse ${WRAPSIRE_SOURCES})
-target_link_libraries(basicuse INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a)
+target_link_libraries(basicuse INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/lib/pkmn.lib)
 
 add_executable(randomagent examples/randomagent.cpp)
-target_link_libraries(randomagent INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a)
+target_link_libraries(randomagent INTERFACE engine-wrapper PUBLIC ${PROJECT_SOURCE_DIR}/lib/pkmn.lib)
 
 # TEST
 
@@ -43,5 +43,5 @@ add_executable(engine-test ${TEST_SOURCES})
 target_link_libraries(engine-test 
     PUBLIC ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
     INTERFACE engine-wrapper 
-    PUBLIC ${PROJECT_SOURCE_DIR}/dependencies/libpkmn-showdown.a
+    PUBLIC ${PROJECT_SOURCE_DIR}/lib/pkmn.lib
 )

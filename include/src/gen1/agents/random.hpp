@@ -20,8 +20,8 @@ namespace RBY {
             rng(std::random_device{}()), dist(0.0, 1.0), move_prob(MoveProb) {}
 
         pkmn_choice make_choice() {
-            pkmn_choice move_choices[PKMN_CHOICES_SIZE];
-            pkmn_choice switch_choices[PKMN_CHOICES_SIZE];
+            pkmn_choice move_choices[9];
+            pkmn_choice switch_choices[9];
             uint8_t moves_n    = pkmn_gen1_battle_choices(gamestate, player, PKMN_CHOICE_MOVE, move_choices, PKMN_CHOICES_SIZE);
             uint8_t switches_n = pkmn_gen1_battle_choices(gamestate, player, PKMN_CHOICE_SWITCH, switch_choices, PKMN_CHOICES_SIZE);
             

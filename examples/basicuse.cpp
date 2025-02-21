@@ -1,5 +1,6 @@
 #include "wrapsire.hpp"
 
+#include <chrono>
 #include "agents/random.hpp"
 
 pkmn_choice choose(
@@ -21,30 +22,34 @@ pkmn_choice choose(
    // at random
    return choices[(uint64_t)pkmn_psrng_next(random) * n / 0x100000000];
 }
-
+//10223443
 int main(int argc, char **argv)
 {
    using namespace wrapsire::RBY;
-   
-   auto battle = wrapsire::RBY::miedon_zapjynx;
-   pkmn_result result = PKMN_RESULT_NONE;
-   pkmn_choice c1;
-   pkmn_choice c2;
-   pkmn_psrng random;
-   uint64_t seed = 0;
-   pkmn_psrng_init(&random, seed);
-   pkmn_choice choices[PKMN_CHOICES_SIZE];
+   auto start = std::chrono::high_resolution_clock::now();
+   for (int i = 0; i < 1000000; i++) {
+       auto battle = wrapsire::RBY::miedon_zapjynx;
+       pkmn_result result = PKMN_RESULT_NONE;
+       pkmn_choice c1;
+       pkmn_choice c2;
+       pkmn_psrng random;
+       uint64_t seed = 0;
+       pkmn_psrng_init(&random, seed);
+       pkmn_choice choices[9];
 
-   battle.init();
+       battle.init();
 
-   while(!pkmn_result_type(battle.result))
-   {
-      c1 = choose(battle(), &random, PKMN_PLAYER_P1, pkmn_result_p1(battle.result), choices);
-      c2 = choose(battle(), &random, PKMN_PLAYER_P2, pkmn_result_p2(battle.result), choices);
-      battle.play_turn(c1, c2);
+       while (!pkmn_result_type(battle.result))
+       {
+           c1 = choose(battle(), &random, PKMN_PLAYER_P1, pkmn_result_p1(battle.result), choices);
+           c2 = choose(battle(), &random, PKMN_PLAYER_P2, pkmn_result_p2(battle.result), choices);
+           battle.play_turn(c1, c2);
+       }
+       //battle.print_result();
    }
-
-   battle.print_result();
+   auto stop = std::chrono::high_resolution_clock::now();
+   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+   std::cout << "Execution time: " << duration.count() << " microseconds" << std::endl;
 
    return 0;
 }
